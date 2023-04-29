@@ -1,0 +1,30 @@
+.bg-text-carousel{
+    background: rgb(9,9,121);
+    background: linear-gradient(90deg, rgba(9,9,121,1) 0%, rgba(251,251,251,0.6475840336134453) 0%, rgba(10,10,10,0.21612394957983194) 0%);
+}
+
+.roboto-slab{
+    font-family: Roboto Slab;
+  }
+
+.img-gs {
+    filter: grayscale(50%);
+  }
+
+.directory-jumbotron{
+  background-image:url('../img/directory-jumbotron.jpg');
+  background-position:center;
+  object-fit:cover;
+  height:50vh;
+  max-width:100%;
+
+}
+
+.feature-jumbotron{
+  background-image:url('../img/feature-jumbotron.jpg');
+  background-position:center;
+  object-fit:cover;
+  height:50vh;
+  max-width:100%;
+
+}
