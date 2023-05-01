@@ -18,9 +18,9 @@ class CreateDirectoryTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('category');
             $table->string('slug');
+            $table->string('author');
             $table->string('title');
             $table->longText('description');
-            $table->string('image');
             $table->timestamps();
         });
     }

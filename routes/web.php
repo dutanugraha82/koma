@@ -23,7 +23,7 @@ Route::get('/{any?}', function () {
 });
 
 Route::prefix('admin')->group(function (){
-    Route::get('/login',[LoginController::class,'index'])->middleware('guest');
+    Route::get('/login',[LoginController::class,'index'])->middleware('guest')->name('login');
     Route::post('/authenticate',[LoginController::class,'authenticate'])->middleware('guest');
     Route::post('/logout',[LoginController::class,'logout']);
 

@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             'email' => 'koma@admin.com',
-            'password' => Hash::make('komamedia1975/mediakoma1975')
+            'password' => Hash::make('komamedia1975')
         ]);
     }
 }
