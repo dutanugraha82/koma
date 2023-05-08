@@ -8,7 +8,9 @@ use App\Models\Admin\Category;
 use App\Models\Admin\Directory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\ImageDirectory;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Resources\DirectoryResource;
 
 class DirectoryController extends Controller
 {
@@ -72,21 +74,25 @@ class DirectoryController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
        $request->validate([
         'category' => 'required',
         'title' => 'required',
         'description' => 'required',
-        'image' => 'image'
+        'author' => 'required',
+        'thumbnail' => 'image'
        ]);
-        $image = $request->file('image')->store('directory');
-
-        Directory::create([
-            'category_id' => $request->category,
-            'slug' => Str::kebab($request->title),
-            'title' => $request->title,
-            'description' => $request->description,
-            'image' => $image
-        ]);
+       
+       $thumbnail = $request->file('thumbnail')->store('thumbnail-directory');
+    //    dd($thumbnail);
+             Directory::create([
+                    'category_id' => $request->category,
+                    'slug' => Str::slug($request->title),
+                    'author' => $request->author,
+                    'title' => Str::upper($request->title),
+                    'description' => $request->description,
+                    'thumbnail' => $thumbnail,
+                ]);
 
         return redirect(route('directory.index'));
     }
@@ -114,7 +120,7 @@ class DirectoryController extends Controller
     {
         $directory = Directory::find($id);
         $category = Category::all();
-        // dd($directory);
+        // dd($image);
         return view('admin.contents.directory.edit',compact('directory','category'));
     }
 
@@ -133,13 +139,14 @@ class DirectoryController extends Controller
             'description' => 'required'
         ]);
 
-        if ($request->file('image')) {
+        if ($request->file('thumbnail')) {
             Directory::where('id',$id)->update([
                 'category_id' => $request->category,
-                'title' => $request->title,
-                'slug' => Str::kebab($request->title),
+                'slug' => Str::slug($request->title),
+                'author' => $request->author,
+                'title' => Str::upper($request->title),
                 'description' => $request->description,
-                'image' => $request->file('image')->store('directory')
+                'thumbnail' => $request->file('thumbnail')->store('thumbnail-directory')
             ]);
 
             Storage::delete($request->oldImage);
@@ -148,8 +155,9 @@ class DirectoryController extends Controller
         } else {
             Directory::where('id',$id)->update([
                 'category_id' => $request->category,
-                'title' => $request->title,
-                'slug' => Str::kebab($request->title),
+                'slug' => Str::slug($request->title),
+                'author' => $request->author,
+                'title' => Str::upper($request->title),
                 'description' => $request->description,
             ]);
 
@@ -166,7 +174,7 @@ class DirectoryController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        Directory::where('id',$id)->delete();
+        Directory::where('directory.id','=',$id)->delete();
         Storage::delete($request->image);
         return redirect(route('directory.index'));
     }
@@ -174,12 +182,12 @@ class DirectoryController extends Controller
     // API CONTROLLER
 
     public function directory(){
-        $directory = Directory::all();
-        return response()->json($directory)->setStatusCode(200);
+        $directory = Directory::latest()->get();
+        return DirectoryResource::collection($directory);
     }
 
     public function detailDirectory($slug){
-        $directory = DB::table('category')->join('directory', 'category.id','=','directory.category_id')->get();
+        $directory = DB::table('category')->join('directory', 'category.id','=','directory.category_id')->where('directory.slug','=',$slug)->get();
         if ($directory) {
             return response()->json($directory)->setStatusCode(200);
         } else {

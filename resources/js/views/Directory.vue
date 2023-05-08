@@ -13,38 +13,14 @@
     </form>
 </div>
     <hr>
-<div class="container-fluid my-4">
+<div class="container my-4">
         <div class="row">
-             <div class="col-md-3 mb-4 mb-md-0">
-                <div class="card mx-auto" style="width: 18rem;">
-                    <img src="https://picsum.photos/id/1/200" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </div>
-             <div class="col-md-3 mb-4 mb-md-0">
-                <div class="card mx-auto" style="width: 18rem;">
-                    <img src="https://picsum.photos/id/1/200" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </div>
-             <div class="col-md-3 mb-4 mb-md-0">
-                <div class="card mx-auto" style="width: 18rem;">
-                    <img src="https://picsum.photos/id/1/200" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </div>
-             <div class="col-md-3 mb-4 mb-md-0">
-                <div class="card mx-auto" style="width: 18rem;">
-                    <img src="https://picsum.photos/id/1/200" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
+             <div v-for="item in directory" :key="directory.slug" class="col-md-6 col-lg-3 mb-4 mb-md-0">
+                <div class="card border-0 mx-auto" style=" max-width:16rem">
+                    <img :src="'/storage/'+item.thumbnail" class="bgSizeImg" style="max-height:18rem;max-width:15rem;" alt="...">
+                    <h5 class="display-4 text-center mt-3" style="font-size:1.2em;">{{ item.title }}</h5>
+                    <small style="font-size:0.6em; text-align:right;">{{item.created_at}}</small>
+                    <hr>
                 </div>
             </div>
         </div>
@@ -56,8 +32,23 @@
 <script>
 
 export default {
+    data(){
+      return{
+        directory:[],
+      }
+
+    },
+
     mounted(){
-        console.log('Copyright Koma')
+     axios.get('http://127.0.0.1:8000/api/directory').then((response)=>{
+      this.directory = response.data.data;
+      // console.log(response.data.data);
+     });
     }
 }
 </script>
+<style>
+  .bgSizeImg{
+    background-origin: content-block;
+  }
+</style>

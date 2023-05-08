@@ -20,6 +20,7 @@ class CreateDirectoryTable extends Migration
             $table->string('slug');
             $table->string('author');
             $table->string('title');
+            $table->string('thumbnail');
             $table->longText('description');
             $table->timestamps();
         });

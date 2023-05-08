@@ -17,7 +17,7 @@ class CreateImageDirectoryTable extends Migration
             $table->id();
             $table->string('image');
             $table->unsignedBigInteger('directory_id');
-            $table->foreign('directory_id')->references('id')->on('directory');
+            $table->foreign('directory_id')->references('id')->on('directory')->onDelete('cascade');
             $table->timestamps();
         });
     }

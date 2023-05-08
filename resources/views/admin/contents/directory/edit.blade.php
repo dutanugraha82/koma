@@ -3,7 +3,7 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 @endpush
 @section('pageTitle')
-    edit-{{ $directory->slug }}
+    {{ $directory->slug }}
 @endsection
 @section('title')
     Edit {{ $directory->title }}
@@ -21,6 +21,10 @@
                             <input type="text" class="form-control" name="title" value="{{ $directory->title }}" required>
                         </div>
                         <div class="mb-3">
+                            <label for="title">Author</label>
+                            <input type="text" class="form-control" name="author" value="{{ Str::ucfirst($directory->author) }}" required>
+                        </div>
+                        <div class="mb-3">
                             <label for="category">Category</label>
                             <select class="form-control" name="category" id="" required>
                                 <option value="{{ $directory->category_id }}">{{ Str::ucfirst($directory->category->name) }}</option>
@@ -36,14 +40,14 @@
                     </div>
                     <div class="col-md-6">
                         <div class="mb-4">
-                            <img src="{{ asset('/storage'.'/'.$directory->image) }}" class="col-10" alt="">
-                            <input type="hidden" name="oldImage" value="{{ $directory->image }}">
+                            <img src="{{ asset('/storage'.'/'.$directory->thumbnail) }}" class="col-8" alt="">
+                            <input type="hidden" name="oldImage" value="{{ $directory->thumbnail }}">
                         </div>
                         <div class="mb-4">
-                            <label for="image">Update image</label>
-                            <input type="file" class="form-control" name="image" id="image" onchange="imgPreview()">
+                            <label for="image">Update Thumbnail</label>
+                            <input type="file" class="form-control" name="thumbnail" id="image" onchange="imgPreview()">
                         </div>
-                        <img class="img-preview shadow rounded p-3" style="max-width: 50rem;">
+                        <img class="img-preview col-5 shadow rounded p-3" style="max-width: 50rem;">
                     </div>
                 </div>
                 <div class="mt-5 mb-3">

@@ -16,4 +16,4 @@ use App\Http\Controllers\Admin\DirectoryController;
 */
 
 Route::get('/directory',[DirectoryController::class,'directory']);
-Route::get('/directory/{slug}',[DirectoryController::class,'detailDirectory']);
+Route::get('/directory/{directory}',[DirectoryController::class,'detailDirectory']);

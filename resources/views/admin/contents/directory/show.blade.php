@@ -10,4 +10,7 @@
         <small>category: {{ $directory->category->name }} |</small>
         <small>{{ $directory->updated_at->todatestring() }}</small> 
     </div>
+    <div class=" container mt-4">
+        <small>auhtor: {{ $directory->author }}</small>
+    </div>
 @endsection

@@ -20,6 +20,10 @@
                             <input type="text" class="form-control" name="title" required>
                         </div>
                         <div class="mb-3">
+                            <label for="author">Author</label>
+                            <input type="text" class="form-control" name="author" required>
+                        </div>
+                        <div class="mb-3">
                             <label for="category">Category</label>
                             <select class="form-control" name="category" id="" required>
                                 <option value="">--- Choose Category ---</option>
@@ -35,8 +39,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="mb-4">
-                            <label for="image">Input image</label>
-                            <input type="file" class="form-control" name="image" id="image" onchange="imgPreview()" required>
+                            <label for="image">Input Thumbnail</label>
+                            <input type="file" class="form-control col-8" name="thumbnail" id="image" onchange="imgPreview()" required>
                         </div>
                         <img class="img-preview shadow rounded p-3" style="max-width: 50rem;">
                     </div>

@@ -9,13 +9,15 @@
 
 .img-gs {
     filter: grayscale(50%);
+    object-fit: cover;
+    background-origin: content-block;
   }
 
 .directory-jumbotron{
   background-image:url('../img/directory-jumbotron.jpg');
   background-position:center;
   object-fit:cover;
-  height:50vh;
+  height:100%;
   max-width:100%;
 
 }
